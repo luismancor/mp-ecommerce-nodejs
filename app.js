@@ -1,5 +1,6 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
+var cors = require('cors')
 //const http = require('http');//back url
 //const url = require('url');//back url
 var port = process.env.PORT || 3000
@@ -21,6 +22,8 @@ var app = express();
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.use(express.static('assets'));
+app.use(cors());
+app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false })) // Post request imports
 app.use('/assets', express.static(__dirname + '/assets'));
 
@@ -70,11 +73,12 @@ app.post('/checkout', function (req, res) {
         },
         external_reference: "luis.mancor@hotmail.com",
         back_urls: {
-            "success": "https://www.google.com",
-            "failure": "http://www.failure.com",
-            "pending": "http://www.pending.com"
+            "success": "http://localhost:3000/sucess/",
+            "failure": "http://localhost:3000/denied/",
+            "pending": "http://localhost:3000/pending/"
         },
         auto_return: "approved",
+
         payment_methods: {
             "excluded_payment_methods": [
                 {
@@ -87,17 +91,18 @@ app.post('/checkout', function (req, res) {
                 }
             ],
             "installments": 6
-            }
+        },
+        //"notification_url": "http://localhost:3000/notification/",
     }
-    console.log(preference);
+    //console.log(preference);
 
     mercadopago.preferences.create(preference)
         .then(function (response) {
             // Este valor reemplazará el string "<%= global.id %>" en tu HTML
             global.id = response.body.id;
 
-            console.log(response);
-            console.log(response.body.id);
+            //console.log(response);
+            //console.log(response.body.id);
 
             res.redirect(response.body.init_point);
 
@@ -108,29 +113,49 @@ app.post('/checkout', function (req, res) {
 });
 
 
-app.get('/sucess/:collection_id/:collection_status', function (req, res) {
+app.get('/sucess', function (req, res) {
+
+    /*
+    let collection_id = req.query.collection_id;
+    let collection_status = req.query.collection_status;
+    let payment_id = req.query.payment_id; //-- o el collection ID
+    let status = req.query.status;
+    let external_reference = req.query.external_reference;
+    let payment_type = req.query.payment_type;
+    let merchant_order_id = req.query.merchant_order_id;
+    let preference_id = req.query.preference_id;
+    let site_id = req.query.site_id;
+    let processing_mode = req.query.processing_mode;
+    let merchant_account_id = req.query.merchant_account_id
     
-    var collection_id = req.params('collection_id');
-   //--- var collection_id = req.query.collection_id;
-    //---var collection_status = req.query.collection_status;
-    //var collection_status = req.params('collection_status');//no
-    //--var external_reference = req.params('external_reference');
-    //--var payment_id = req.params('payment_id'); //-- o el collection ID
-    //var status = req.params('status');
-    //--var preference_id = req.params('preference_id');
-    //--var payment_type = req.params('payment_type');
-    
-    /*var datos = {
+    var datos = {
         "collectionId":collection_id,
         "external":external_reference,
         "payment_id":payment_id,
         "preference_id":preference_id,
         "payment_type":payment_type
-    }
-    
-    res.render('sucess',datos);*/
-    console.log(collection_id);
-    res.render('home');
+    }*/
+
+    //console.log(datos);
+
+    res.render('sucess', req.query);
+});
+
+app.get('/pending', function (req, res) {
+    res.render('pending');
+});
+app.get('/denied', function (req, res) {
+    res.render('denied');
+});
+
+app.post('/notification', function (req, res) {
+
+    var id = req.body.action;
+
+    console.log(id);
+    console.log(req.body);
+    //res.render('/');
+    res.status(200).end();
 });
 
 
