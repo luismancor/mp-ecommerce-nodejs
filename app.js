@@ -155,7 +155,18 @@ app.post('/notification', function (req, res) {
     console.log(id);
     console.log(req.body);
     //res.render('/');
-    res.status(200).end();
+    if (req.method === "POST") {
+        let body = "";
+        req.on("data", chunk => {
+            body += chunk.toString();
+        });
+        req.on("end", () => {
+            console.log(body, "webhook response");
+            res.end("ok");
+        });
+    }
+    res.json(req.body);
+    //res.status(200);
 });
 
 
