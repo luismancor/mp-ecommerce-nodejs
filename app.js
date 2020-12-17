@@ -73,9 +73,9 @@ app.post('/checkout', function (req, res) {
         },
         external_reference: "luis.mancor@hotmail.com",
         back_urls: {
-            "success": "http://localhost:3000/sucess/",
-            "failure": "http://localhost:3000/denied/",
-            "pending": "http://localhost:3000/pending/"
+            "success": "https://luismancor-mp-commerce-nodejs.herokuapp.com/sucess/",
+            "failure": "https://luismancor-mp-commerce-nodejs.herokuapp.com/denied/",
+            "pending": "https://luismancor-mp-commerce-nodejs.herokuapp.com/pending/"
         },
         auto_return: "approved",
 
