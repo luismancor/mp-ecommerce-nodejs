@@ -102,7 +102,7 @@ app.post('/checkout', function (req, res) {
             global.id = response.body.id;
 
             //console.log(response);
-            //console.log(response.body.id);
+            console.log("Este es el preferences id -> "+response.body.id);
 
             res.redirect(response.body.init_point);
 
@@ -137,6 +137,7 @@ app.get('/sucess', function (req, res) {
     }*/
 
     //console.log(datos);
+    console.log("Este es el payment_id ->"+ req.query.payment_id);
 
     res.render('sucess', req.query);
 });
@@ -152,8 +153,8 @@ app.post('/notification', function (req, res) {
 
     var id = req.body.action;
 
-    console.log("Esta es la ID "+id);
-    console.log(req.body);
+    //console.log("Esta es la ID "+id);
+    console.log("ESTE ES EL BODY --> "+req.body);
     
     
        if (req.method === "POST") {
@@ -162,7 +163,7 @@ app.post('/notification', function (req, res) {
             body += chunk.toString();
         });
         req.on("end", () => {
-            console.log(body, "webhook response");
+            //console.log(body, "webhook response");
             res.end("ok");
         });
     }
