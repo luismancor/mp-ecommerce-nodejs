@@ -154,9 +154,8 @@ app.post('/notification', function (req, res) {
 
     console.log("Esta es la ID "+id);
     console.log(req.body);
-    //res.render('/');
-
-    /*
+    
+    
        if (req.method === "POST") {
         let body = "";
         req.on("data", chunk => {
@@ -168,8 +167,8 @@ app.post('/notification', function (req, res) {
         });
     }
     //res.json(req.body);
-    */
-    res.status(200).end();
+   
+    res.status(200);
 });
 
 
