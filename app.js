@@ -92,7 +92,7 @@ app.post('/checkout', function (req, res) {
             ],
             "installments": 6
         },
-        //"notification_url": "http://localhost:3000/notification/",
+        "notification_url": "https://luismancor-mp-commerce-nodejs.herokuapp.com/notification/",
     }
     //console.log(preference);
 
