@@ -152,7 +152,7 @@ app.post('/notification', function (req, res) {
 
     var id = req.body.action;
 
-    console.log(id);
+    //console.log(id);
     console.log(req.body);
     //res.render('/');
     if (req.method === "POST") {
@@ -165,8 +165,8 @@ app.post('/notification', function (req, res) {
             res.end("ok");
         });
     }
-    res.json(req.body);
-    //res.status(200);
+    //res.json(req.body);
+    res.status(200);
 });
 
 
