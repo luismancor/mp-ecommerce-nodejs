@@ -154,7 +154,7 @@ app.post('/notification', function (req, res) {
     var id = req.body.action;
 
     //console.log("Esta es la ID "+id);
-    console.log("ESTE ES EL BODY --> "+req.body);
+    console.log(req.body);
     
     
        if (req.method === "POST") {
@@ -163,7 +163,7 @@ app.post('/notification', function (req, res) {
             body += chunk.toString();
         });
         req.on("end", () => {
-            //console.log(body, "webhook response");
+            console.log(body, "webhook response");
             res.end("ok");
         });
     }
