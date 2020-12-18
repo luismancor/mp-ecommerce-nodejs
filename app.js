@@ -154,14 +154,18 @@ app.post('/notification', function (req, res) {
     var id = req.body.action;
 
     //console.log("Esta es la ID "+id);
-    console.log(req.body);
+    //console.log(req.body);
     
     
        if (req.method === "POST") {
         let body = "";
         req.on("data", chunk => {
+
+            console.log(JSON.stringify(chunk,null,2));
             body += chunk.toString();
-        });
+        }
+        
+        );
         req.on("end", () => {
             console.log(body, "webhook response");
             res.end("ok");
