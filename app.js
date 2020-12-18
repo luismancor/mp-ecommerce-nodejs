@@ -155,14 +155,16 @@ app.post('/notification', function (req, res) {
 
     //console.log("Esta es la ID "+id);
     //console.log(req.body);
-    
+    console.log("Empieza el stringify");
+    console.log(JSON.stringify(req.body,null,2));
     
        if (req.method === "POST") {
         let body = "";
         req.on("data", chunk => {
 
-            console.log(JSON.stringify(chunk,null,2));
+            //console.log(JSON.stringify(chunk,null,2));
             body += chunk.toString();
+            console.log("Este es el STRING: -> "+body);
         }
         
         );
